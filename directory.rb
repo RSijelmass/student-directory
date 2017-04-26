@@ -1,13 +1,18 @@
 def input_students
-  puts "Please enter the names of the students;"
-  puts "to finish, just hit return twice."
+  puts "Please enter the name and cohort of the students;"
+  puts "To finish, just hit return twice."
   students = []
   name = gets.chomp
+  cohort = gets.chomp
+  cohort = :unknown if cohort == ""
 
   while !name.empty? do
-    students << {name: name, cohort: :november}
-    puts "Now we have #{students.count} students!"
+    students << {name: name, cohort: cohort}
+    students.count == 1 ? student_noun = "student" : student_noun = "students"
+    puts "Now we have #{students.count} #{student_noun}!"
     name = gets.chomp
+    cohort = gets.chomp
+    cohort = :unknown if cohort == ""
   end
   students
 end
@@ -44,7 +49,8 @@ def print_short(students)
 end
 
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students"
+  students.count == 1 ? student_noun = "student" : student_noun = "students"
+  puts "Overall, we have #{students.count} great #{student_noun}."
 end
 
 students = input_students
