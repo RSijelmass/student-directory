@@ -51,6 +51,14 @@ def print_short(students)
   end
 end
 
+#printing students sorted by cohort
+def print_by_cohort(students)
+  students.sort_by!{ |key| key[:cohort] }
+  students.each_with_index do |student|
+    puts "#{student[:name]} (#{student[:cohort]} cohort)".center(50)
+  end
+end
+
 def print_footer(students)
   students.count == 1 ? student_noun = "student" : student_noun = "students"
   puts "Overall, we have #{students.count} great #{student_noun}.".center(50)
@@ -60,8 +68,9 @@ students = input_students
 #only print if at least 1 student is put in
 if students.count > 0
   print_header
-  print_index(students)
+  #print_index(students)
   #print_letter(students, "H")
   #print_short(students)
+  print_by_cohort(students)
   print_footer(students)
 end
