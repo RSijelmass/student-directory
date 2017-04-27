@@ -4,6 +4,7 @@ def interactive_menu
   loop do
     print_menu
     process(STDIN.gets.chomp)
+    puts "Action succesfully completed! What next?"
   end
 end
 
