@@ -1,6 +1,6 @@
 def interactive_menu
   @students ||= []
-  try_load_students
+  initial_load_students
   loop do
     print_menu
     process(STDIN.gets.chomp)
@@ -63,16 +63,11 @@ def save_students
   file.close
 end
 
-def try_load_students
+def initial_load_students
   filename = ARGV.first
-  return if filename.nil?
-  if File.exists?(filename)
-    load_students(filename)
+  filename = "students.csv" if filename.nil?
+  load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
-  else
-    puts "Sorry, #{filename} doesn't exist."
-    exit
-  end
 end
 
 def load_students(filename = "students.csv")
