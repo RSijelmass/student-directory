@@ -55,8 +55,12 @@ def input_students
   end
 end
 
-def save_students
-  file = File.open("students.csv","w")
+def save_students(filename = "")
+  while filename == ""
+    puts "What file do you want to save this list in?"
+    filename = gets.chomp
+  end
+  file = File.open(filename,"w")
   @students.each do |student|
     student_data = [student[:name],student[:cohort]]
     csv_line = student_data.join(",")
@@ -72,7 +76,12 @@ def initial_load_students
     puts "Loaded #{@students.count} from #{filename}"
 end
 
-def load_students(filename = "students.csv")
+def load_students(filename = "")
+  while filename == ""
+    puts "What file do you want to load?"
+    filename = gets.chomp
+  end
+
   file = File.open(filename,"r")
   file.readlines.each do |line|
     @name, @cohort = line.chomp.split(",")
