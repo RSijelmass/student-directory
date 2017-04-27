@@ -1,3 +1,32 @@
+def interactive_menu
+  students = []
+  loop do
+    #1. print the menu and ask what to do
+    puts "1. Input the students"
+    puts "2. Show the students"
+    puts "9. Exit"
+    #2. read the input and save it in a variable
+    selection = gets.chomp
+    #3. do what the user has asked
+    case selection
+      when "1"
+        students = input_students
+      when "2"
+        if students.count > 0
+          print_header
+          print(students)
+          print_footer(students)
+        else
+          puts "There are no students to show"
+        end
+      when "9"
+        exit
+      else
+        puts "I don't fully understand, try again."
+    end
+  end
+end
+
 def input_students
   puts "Please enter the name and cohort of the students;"
   puts "To finish, just hit return twice."
@@ -28,49 +57,9 @@ def print(students)
   end
 end
 
-#printing students with an index
-def print_index(students)
-    i = 0
-    while i < students.length
-      puts "#{i+1}. #{students[i][:name]} (#{students[i][:cohort]} cohort)".center(50)
-      i += 1
-  end
-end
-
-#only printing students starting with a specific letter
-def print_letter(students, letter)
-  students.each_with_index do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)".center(50) if student[:name][0] == letter
-  end
-end
-
-#only printing students with a name smaller than 12 letters
-def print_short(students)
-  students.each_with_index do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)".center(50) if student[:name].length < 11
-  end
-end
-
-#printing students sorted by cohort
-def print_by_cohort(students)
-  students.sort_by!{ |key| key[:cohort] }
-  students.each_with_index do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)".center(50)
-  end
-end
-
 def print_footer(students)
   students.count == 1 ? student_noun = "student" : student_noun = "students"
   puts "Overall, we have #{students.count} great #{student_noun}.".center(50)
 end
 
-students = input_students
-#only print if at least 1 student is put in
-if students.count > 0
-  print_header
-  #print_index(students)
-  #print_letter(students, "H")
-  #print_short(students)
-  print_by_cohort(students)
-  print_footer(students)
-end
+interactive_menu
