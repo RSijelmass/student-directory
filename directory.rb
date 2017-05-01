@@ -60,13 +60,13 @@ def save_students(filename = "")
     puts "What file do you want to save this list in?"
     filename = gets.chomp
   end
-  file = File.open(filename,"w")
-  @students.each do |student|
-    student_data = [student[:name],student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+  File.open(filename,"w") do |file|
+    @students.each do |student|
+      student_data = [student[:name],student[:cohort]]
+      csv_line = student_data.join(",")
+      file.puts csv_line
+    end
   end
-  file.close
 end
 
 def initial_load_students
